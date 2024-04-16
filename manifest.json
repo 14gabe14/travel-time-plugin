@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "Kijiji Travel Time",
+    "version": "1.0",
+    "description": "Calculates travel time to addresses in Kijiji ads using Google Maps.",
+    "permissions": [
+      "activeTab",
+      "storage"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["*://*.kijiji.ca/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "browser_action": {
+      "default_popup": "popup.html"
+    }
+  }
