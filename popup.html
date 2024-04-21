@@ -2,19 +2,69 @@
 <html>
 <head>
   <title>Kijiji Travel Time</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    body {
+      width: 300px;
+      padding: 0px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Kijiji Travel Time</h1>
-  <label for="address">Destination Address:</label>
-  <input type="text" id="address" name="address"><br> 
-  <label for="time">Arrival Time:</label>
-  <input type="datetime-local" id="time" name="time"><br>
-  <label for="mode">Travel Mode:</label>
-  <select id="mode" name="mode">
-    <option value="driving">Driving</option>
-    <option value="transit">Public Transit</option>
-  </select><br>
-  <button id="saveSettings">Save Settings</button>
+  <section class="section">
+    <div class="container">
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <img src="icons/logo-48.png" alt="Extension Logo">
+          </div>
+          <div class="level-item">
+            <h1 class="title">Travel Time</h1>
+          </div>
+        </div>
+      </nav>
+      <div class="field">
+        <label class="label" for="address">Destination Address:</label>
+        <div class="control">
+          <input class="input" type="text" id="address" name="address" placeholder="Enter destination address">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="time">Arrival Time:</label>
+        <div class="control">
+          <input class="input" type="datetime-local" id="time" name="time">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="mode">Travel Mode:</label>
+        <div class="control">
+          <div class="select">
+            <select id="mode" name="mode">
+              <option value="driving">Driving</option>
+              <option value="transit">Public Transit</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="timeOption">Time Option:</label>
+        <div class="control">
+          <div class="select">
+            <select id="timeOption" name="timeOption">
+              <option value="">None</option>
+              <option value="arriveBy">Arrive By</option>
+              <option value="departAt">Depart At</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <button id="saveSettings" class="button is-primary">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </section>
   <script src="popup.js"></script>
 </body>
 </html>
