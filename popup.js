@@ -30,3 +30,22 @@ function refreshKijijiPage() {
     }
   });
 }
+
+function showPopupMessage(message) {
+  var popup = document.createElement('div');
+  popup.id = 'travelInfoPopup';
+  popup.innerHTML = message;
+  popup.style.position = 'fixed';
+  popup.style.bottom = '20px';
+  popup.style.right = '20px';
+  popup.style.padding = '20px';
+  popup.style.backgroundColor = '#ffffff';
+  popup.style.border = '1px solid #ccc';
+  popup.style.borderRadius = '8px';
+  popup.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+  popup.style.zIndex = '9999';
+  popup.style.fontSize = '16px';
+  popup.style.lineHeight = '1.5';
+  popup.style.width = '300px';
+  document.body.appendChild(popup);
+}

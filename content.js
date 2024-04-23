@@ -16,32 +16,38 @@ chrome.storage.sync.get(['address', 'time', 'mode', 'timeOption'], function (ite
     var apiUrl = `http://localhost:3000/api/directions?origin=${encodeURIComponent(adAddress)}&destination=${encodeURIComponent(address)}&mode=${mode}`;
 
     if (timeOption && time) {
-      apiUrl += `&timeOption=${timeOption}&time=${time}`;
+      var localTime = new Date(time);
+      var utcTime = new Date(localTime.getTime() + localTime.getTimezoneOffset() * 60000);
+      var arrivalTime = Math.floor(utcTime.getTime() / 1000);
+
+      if (timeOption === 'arriveBy') {
+        apiUrl += `&arrival_time=${arrivalTime}`;
+      } else if (timeOption === 'departAt') {
+        apiUrl += `&departure_time=${arrivalTime}`;
+      }
     }
 
     console.log('API URL:', apiUrl);
-
-    var travelInfo = document.createElement('div');
-    travelInfo.id = 'travelInfo';
-    travelInfo.textContent = 'Calculating travel time...';
-    document.querySelector('.mapLink-4124468002').insertAdjacentElement('afterend', travelInfo);
 
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
         var duration = data.routes[0].legs[0].duration.text;
-        var travelInfoText = `Travel time: ${duration}`;
+        var travelInfoText = `<p><strong>Travel time:</strong> ${duration}</p>`;
 
         if (data.transitInfo) {
           var { numTransits, totalWalkingTime } = data.transitInfo;
-          travelInfoText += `<br>Number of transits: ${numTransits}<br>Total walking time: ${Math.floor(totalWalkingTime / 60)} min`;
+          travelInfoText += `<p><strong>Number of transits:</strong> ${numTransits}</p>`;
+          travelInfoText += `<p><strong>Total walking time:</strong> ${Math.floor(totalWalkingTime / 60)} min</p>`;
         }
 
-        document.getElementById('travelInfo').innerHTML = travelInfoText;
+        console.log('Travel info:', travelInfoText);
+
+        showPopupMessage(travelInfoText);
       })
       .catch(error => {
         console.error('Error:', error);
-        document.getElementById('travelInfo').textContent = 'Error calculating travel time.';
+        showPopupMessage('<p>Error calculating travel time.</p>');
       });
   }
 });
